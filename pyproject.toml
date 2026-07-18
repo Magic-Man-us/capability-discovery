@@ -26,8 +26,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Magic-Man-us/capability-discovery"
-Repository = "https://github.com/Magic-Man-us/capability-discovery"
+Homepage = "https://github.com/Magic-Man-us/claude-code-capabilities"
+Repository = "https://github.com/Magic-Man-us/claude-code-capabilities"
 
 [project.scripts]
 capdisc = "capdisc.report:main"
