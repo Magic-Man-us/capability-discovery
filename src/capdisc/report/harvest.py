@@ -111,12 +111,8 @@ def write_report(
         html_path: Destination for the rendered document; parent dirs are created.
             Under the settings' `report_dir` when None.
     """
-    json_path = (
-        json_path if json_path is not None else get_settings().report_dir / REPORT_JSON_NAME
-    )
-    html_path = (
-        html_path if html_path is not None else get_settings().report_dir / REPORT_HTML_NAME
-    )
+    json_path = json_path if json_path is not None else get_settings().report_dir / REPORT_JSON_NAME
+    html_path = html_path if html_path is not None else get_settings().report_dir / REPORT_HTML_NAME
     # The report can embed raw scanned file contents (e.g. a hook's command string), so its
     # directory is kept private the same way mcp_harvest.auth.ensure_private_dir locks down
     # the OAuth token store — mkdir(mode=...) alone only applies to a dir it newly creates.

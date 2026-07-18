@@ -15,6 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Typing :: Typed",
 ]
 dependencies = [
@@ -34,7 +35,7 @@ capdisc = "capdisc.report:main"
 
 [dependency-groups]
 dev = [
-    "mypy>=2.3.0",
+    "pyright>=1.1.408",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.22",
@@ -73,20 +74,10 @@ known-first-party = ["capdisc"]
 [tool.ruff.format]
 docstring-code-format = true
 
-[tool.mypy]
-python_version = "3.12"
-mypy_path = "src"
-plugins = ["pydantic.mypy"]
-strict = true
-warn_unreachable = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-
-[tool.pydantic-mypy]
-init_forbid_extra = true
-init_typed = true
-warn_required_dynamic_aliases = true
-warn_untyped_fields = true
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
 
 [tool.pytest.ini_options]
 pythonpath = ["src", "tests"]

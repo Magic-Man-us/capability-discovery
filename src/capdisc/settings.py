@@ -176,13 +176,9 @@ class DiscoverySettings(BaseSettings):
         default_factory=lambda: Path.home() / ".claude" / "settings.json"
     )
     mcp_cache: McpCachePath = Field(
-        default_factory=lambda: (
-            Path.home() / ".claude" / "capdisc" / "mcp-tools.json"
-        )
+        default_factory=lambda: Path.home() / ".claude" / "capdisc" / "mcp-tools.json"
     )
-    report_dir: ReportDirPath = Field(
-        default_factory=lambda: Path.home() / ".claude" / "capdisc"
-    )
+    report_dir: ReportDirPath = Field(default_factory=lambda: Path.home() / ".claude" / "capdisc")
 
     # Auth for HTTP MCP servers the anonymous probe can't reach. Keyed by bare server name
     # (the last segment of the ref, e.g. "github" for plugin:github:github). The name is only

@@ -45,8 +45,6 @@ def test_cache_path_default_resolves_at_call_time(
 def test_cwd_env_file_is_ignored(tmp_path: Path, fresh_settings: pytest.MonkeyPatch) -> None:
     # a cloned/untrusted repo's own .env must never override claude_json/plugins_root — only
     # ~/.claude/capdisc/.env (never the process cwd) is trusted for this
-    (tmp_path / ".env").write_text(
-        "CAPDISC_CLAUDE_JSON=/tmp/attacker-controlled-claude.json\n"
-    )
+    (tmp_path / ".env").write_text("CAPDISC_CLAUDE_JSON=/tmp/attacker-controlled-claude.json\n")
     fresh_settings.chdir(tmp_path)
     assert get_settings().claude_json != Path("/tmp/attacker-controlled-claude.json")  # noqa: S108
