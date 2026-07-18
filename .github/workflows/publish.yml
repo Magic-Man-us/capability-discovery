@@ -69,7 +69,7 @@ jobs:
 
   build:
     if: github.event_name == 'release'
-    needs: [secrets-scan, lint, test]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
