@@ -4,6 +4,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/claude-code-capabilities.svg)](https://pypi.org/project/claude-code-capabilities/)
 [![CI](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/publish.yml/badge.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/publish.yml)
 [![codecov](https://codecov.io/gh/Magic-Man-us/claude-code-capabilities/graph/badge.svg)](https://codecov.io/gh/Magic-Man-us/claude-code-capabilities)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-brightgreen.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/blob/main/.github/dependabot.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/blob/main/LICENSE)
 
 Discovers Claude Code capabilities — skills, agents, plugins, MCP servers, hooks — into typed
