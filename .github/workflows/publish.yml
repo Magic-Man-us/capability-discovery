@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   secrets-scan:
+    if: github.event_name != 'release' # gitleaks-action doesn't support the release event
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
