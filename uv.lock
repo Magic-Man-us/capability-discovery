@@ -146,7 +146,7 @@ wheels = [
 ]
 
 [[package]]
-name = "capabilities-discovery"
+name = "capdisc"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

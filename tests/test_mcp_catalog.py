@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from capabilities_discovery.mcp_catalog import parse_mcp_servers
+from capdisc.mcp_catalog import parse_mcp_servers
 
 _LIST = """\
 claude.ai Postman: https://mcp.postman.com/minimal - ! Needs authentication

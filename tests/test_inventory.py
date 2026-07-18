@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from capabilities_discovery.scope import (
+from capdisc.scope import (
     ArtifactKind,
     ScopeInventory,
     ScopeRoots,

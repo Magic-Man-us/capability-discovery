@@ -101,8 +101,8 @@ OAuthTokenDirPath = Annotated[
     ),
 ]
 
-DEFAULT_CONFIG_PATH: Path = Path.home() / ".claude" / "capabilities-discovery" / "config.json"
-DEFAULT_YAML_CONFIG_PATH: Path = Path.home() / ".claude" / "capabilities-discovery" / "config.yaml"
+DEFAULT_CONFIG_PATH: Path = Path.home() / ".claude" / "capdisc" / "config.json"
+DEFAULT_YAML_CONFIG_PATH: Path = Path.home() / ".claude" / "capdisc" / "config.yaml"
 
 
 class McpBearerAuth(InputModel):
@@ -141,8 +141,8 @@ class DiscoverySettings(BaseSettings):
     """Paths and source dirs the discovery layer reads from and writes to.
 
     Precedence (highest to lowest): init args > env vars > .env file > JSON config file >
-    YAML config file > defaults. Env vars use the ``CAPABILITIES_DISCOVERY_`` prefix; the
-    .env, JSON, and YAML files are all read from ``~/.claude/capabilities-discovery/`` (any
+    YAML config file > defaults. Env vars use the ``CAPDISC_`` prefix; the
+    .env, JSON, and YAML files are all read from ``~/.claude/capdisc/`` (any
     or all may be absent = empty, never an error) — never from the process's current working
     directory, so running this tool from inside an untrusted checkout can't override
     ``claude_json``/``plugins_root`` via a repo-committed ``.env`` and defeat the harvest's own
@@ -157,7 +157,7 @@ class DiscoverySettings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(
-        env_prefix="CAPABILITIES_DISCOVERY_",
+        env_prefix="CAPDISC_",
         env_file=DEFAULT_CONFIG_PATH.parent / ".env",
         extra="ignore",
         json_file=DEFAULT_CONFIG_PATH,
@@ -177,11 +177,11 @@ class DiscoverySettings(BaseSettings):
     )
     mcp_cache: McpCachePath = Field(
         default_factory=lambda: (
-            Path.home() / ".claude" / "capabilities-discovery" / "mcp-tools.json"
+            Path.home() / ".claude" / "capdisc" / "mcp-tools.json"
         )
     )
     report_dir: ReportDirPath = Field(
-        default_factory=lambda: Path.home() / ".claude" / "capabilities-discovery"
+        default_factory=lambda: Path.home() / ".claude" / "capdisc"
     )
 
     # Auth for HTTP MCP servers the anonymous probe can't reach. Keyed by bare server name
@@ -199,7 +199,7 @@ class DiscoverySettings(BaseSettings):
         "(interactive browser flow; never in background paths).",
     )
     oauth_token_dir: OAuthTokenDirPath = Field(
-        default_factory=lambda: Path.home() / ".claude" / "capabilities-discovery" / "oauth-tokens"
+        default_factory=lambda: Path.home() / ".claude" / "capdisc" / "oauth-tokens"
     )
 
     @classmethod

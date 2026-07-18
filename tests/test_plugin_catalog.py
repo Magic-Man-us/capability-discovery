@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from capabilities_discovery.plugin_catalog import enumerate_plugins, enumerate_plugins_with_paths
+from capdisc.plugin_catalog import enumerate_plugins, enumerate_plugins_with_paths
 from helpers import touch
 
 

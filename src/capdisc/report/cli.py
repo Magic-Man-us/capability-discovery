@@ -1,4 +1,4 @@
-"""`capabilities-discovery` / `python -m capabilities_discovery.report` entry point."""
+"""`capdisc` / `python -m capdisc.report` entry point."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ _DESCRIPTION = (
 
 def main() -> None:
     """Build the report against this machine and write both files to the default paths."""
-    parser = argparse.ArgumentParser(prog="capabilities-discovery", description=_DESCRIPTION)
+    parser = argparse.ArgumentParser(prog="capdisc", description=_DESCRIPTION)
     parser.add_argument(
         "--oauth",
         action="store_true",

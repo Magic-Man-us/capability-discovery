@@ -5,14 +5,14 @@ from pathlib import Path
 
 import pytest
 
-from capabilities_discovery.catalog import (
+from capdisc.catalog import (
     CatalogMcpServer,
     CatalogPlugin,
     CatalogSkill,
     CatalogTool,
     McpTool,
 )
-from capabilities_discovery.report import (
+from capdisc.report import (
     EnvironmentReport,
     IndexedPlugin,
     IndexedSkill,
@@ -20,7 +20,7 @@ from capabilities_discovery.report import (
     render_environment_html,
     write_report,
 )
-from capabilities_discovery.scope import ScopeInventory, ScopeRoots
+from capdisc.scope import ScopeInventory, ScopeRoots
 from helpers import touch
 
 _SKILL_REF = "sample-skill"

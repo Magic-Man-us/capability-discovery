@@ -1,5 +1,5 @@
 [project]
-name = "capabilities-discovery"
+name = "capdisc"
 version = "0.1.0"
 description = "Discovers Claude Code capabilities — skills, agents, plugins, MCP servers, hooks — into typed catalogs and an environment report."
 license = "MIT"
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.scripts]
-capabilities-discovery = "capabilities_discovery.report:main"
+capdisc = "capdisc.report:main"
 
 [dependency-groups]
 dev = [
@@ -29,7 +29,7 @@ requires = ["hatchling>=1.31.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/capabilities_discovery"]
+packages = ["src/capdisc"]
 
 [tool.ruff]
 target-version = "py312"
@@ -47,11 +47,11 @@ ignore = ["TRY003", "PLR0913", "RUF012"]
 "tests/**" = ["S101", "S102", "PLR2004", "ARG", "PLC0415"]
 "__init__.py" = ["F401"]
 # These models bind external camelCase JSON config keys (mcpServers, pluginConfigs) by field name.
-"src/capabilities_discovery/mcp_harvest/config.py" = ["N815"]
-"src/capabilities_discovery/plugin_catalog.py" = ["N815"]
+"src/capdisc/mcp_harvest/config.py" = ["N815"]
+"src/capdisc/plugin_catalog.py" = ["N815"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["capabilities_discovery"]
+known-first-party = ["capdisc"]
 
 [tool.ruff.format]
 docstring-code-format = true

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from capabilities_discovery.html import redact_home, redact_secrets
+from capdisc.html import redact_home, redact_secrets
 
 
 def test_redact_home_collapses_home_prefix(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

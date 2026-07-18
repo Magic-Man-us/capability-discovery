@@ -5,7 +5,7 @@ scope inventory, indexed skills, built-in tools, installed plugins, and connecte
 not a product feature. `build_report` scans the machine into an `EnvironmentReport` (the
 machine-readable snapshot, which round-trips through Pydantic JSON); `render_environment_html`
 renders that snapshot to HTML. `write_report` persists both; `python -m
-capabilities_discovery.report` writes them to the default paths.
+capdisc.report` writes them to the default paths.
 
 All markup is built here in Python and every dynamic value is escaped; the inline JS only toggles
 classes and `style.display` and reads input values, so the page renders untrusted paths and file

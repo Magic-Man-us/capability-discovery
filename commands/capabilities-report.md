@@ -22,13 +22,13 @@ PLUGIN="$CLAUDE_PLUGIN_ROOT"
 # so a same-named server elsewhere can never receive it. Neither printed nor stored.
 if TOKEN=$(gh auth token 2>/dev/null) && [ -n "$TOKEN" ]; then
   export GH_TOKEN="$TOKEN"
-  export CAPABILITIES_DISCOVERY_MCP_BEARER_ENV='{"github": {"env": "GH_TOKEN", "host": "api.githubcopilot.com"}}'
+  export CAPDISC_MCP_BEARER_ENV='{"github": {"env": "GH_TOKEN", "host": "api.githubcopilot.com"}}'
 fi
-uv run --project "$PLUGIN" capabilities-discovery
+uv run --project "$PLUGIN" capdisc
 ```
 
 It prints the two output paths (JSON snapshot + HTML report, under
-`~/.claude/capabilities-discovery/` by default). Then:
+`~/.claude/capdisc/` by default). Then:
 
 - Read the JSON snapshot and report the counts per catalog kind (skills, tools,
   MCP servers, plugins), the scan roots used, and anything anomalous (servers

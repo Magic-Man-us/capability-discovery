@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from capabilities_discovery.hooks import (
+from capdisc.hooks import (
     EVENT_HANDLER_TYPES,
     AgentHook,
     CommandHook,

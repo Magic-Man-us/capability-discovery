@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from capabilities_discovery.catalog import CATALOG_ID_MAX
-from capabilities_discovery.discovery import scan_indexed_skills, scan_skills
-from capabilities_discovery.scope import ScopeRoots
+from capdisc.catalog import CATALOG_ID_MAX
+from capdisc.discovery import scan_indexed_skills, scan_skills
+from capdisc.scope import ScopeRoots
 from helpers import touch
 
 

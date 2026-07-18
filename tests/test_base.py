@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic.fields import FieldInfo
 
-from capabilities_discovery.base import humanize_field_title
+from capdisc.base import humanize_field_title
 
 _INFO = FieldInfo()
 

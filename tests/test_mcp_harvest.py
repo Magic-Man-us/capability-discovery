@@ -11,16 +11,16 @@ import pytest
 from fastmcp.client.auth import OAuth
 from pydantic import JsonValue
 
-from capabilities_discovery.catalog import CatalogMcpServer, McpTool
-from capabilities_discovery.mcp_harvest import (
+from capdisc.catalog import CatalogMcpServer, McpTool
+from capdisc.mcp_harvest import (
     cache_is_stale,
     read_mcp_cache,
     refresh_in_background,
     write_mcp_cache,
 )
-from capabilities_discovery.mcp_harvest import connect as connect_module
-from capabilities_discovery.mcp_harvest.auth import bare_name, ensure_private_dir, server_auth
-from capabilities_discovery.mcp_harvest.config import (
+from capdisc.mcp_harvest import connect as connect_module
+from capdisc.mcp_harvest.auth import bare_name, ensure_private_dir, server_auth
+from capdisc.mcp_harvest.config import (
     all_server_configs,
     claude_json_scopes,
     manifest_server_configs,
@@ -30,8 +30,8 @@ from capabilities_discovery.mcp_harvest.config import (
     server_configs,
     user_config_subs,
 )
-from capabilities_discovery.mcp_harvest.connect import harvest_servers, to_mcp_tool
-from capabilities_discovery.settings import get_settings
+from capdisc.mcp_harvest.connect import harvest_servers, to_mcp_tool
+from capdisc.settings import get_settings
 
 
 def test_resolve_substitutes_known_placeholders_and_recurses() -> None:
@@ -128,7 +128,7 @@ def test_bare_name_strips_plugin_prefix() -> None:
 def test_server_auth_stdio_and_unconfigured_get_none(monkeypatch: pytest.MonkeyPatch) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN", "host": "h"}}',
     )
     try:
@@ -142,7 +142,7 @@ def test_server_auth_stdio_and_unconfigured_get_none(monkeypatch: pytest.MonkeyP
 def test_server_auth_bearer_from_env_wins(monkeypatch: pytest.MonkeyPatch) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN", "host": "h"}}',
     )
     monkeypatch.setenv("CAPDISC_TEST_TOKEN", "tok-123")
@@ -159,7 +159,7 @@ def test_server_auth_bearer_unset_env_logs_warning(
     # a configured-but-unset bearer env var must be diagnosable, not a silent fall-through
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN_UNSET", "host": "h"}}',
     )
     monkeypatch.delenv("CAPDISC_TEST_TOKEN_UNSET", raising=False)
@@ -177,15 +177,15 @@ def test_server_auth_bearer_wins_over_oauth_when_both_configured(
 ) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN", "host": "h"}}',
     )
     monkeypatch.setenv("CAPDISC_TEST_TOKEN", "tok-123")
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_OAUTH_CLIENTS",
+        "CAPDISC_MCP_OAUTH_CLIENTS",
         '{"github": {"client_id": "abc", "host": "h", "scopes": []}}',
     )
-    monkeypatch.setenv("CAPABILITIES_DISCOVERY_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
+    monkeypatch.setenv("CAPDISC_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
     try:
         auth = server_auth("plugin:github:github", {"url": "https://h/mcp"}, oauth=True)
         assert auth == "tok-123"
@@ -197,7 +197,7 @@ def test_server_auth_bearer_rejected_when_host_mismatches(monkeypatch: pytest.Mo
     # a same-named server pointed at a different host must never receive the credential
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN", "host": "api.githubcopilot.com"}}',
     )
     monkeypatch.setenv("CAPDISC_TEST_TOKEN", "tok-123")
@@ -211,7 +211,7 @@ def test_server_auth_bearer_rejected_when_host_mismatches(monkeypatch: pytest.Mo
 def test_server_auth_rejects_non_https_non_local(monkeypatch: pytest.MonkeyPatch) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"github": {"env": "CAPDISC_TEST_TOKEN", "host": "h"}}',
     )
     monkeypatch.setenv("CAPDISC_TEST_TOKEN", "tok-123")
@@ -224,7 +224,7 @@ def test_server_auth_rejects_non_https_non_local(monkeypatch: pytest.MonkeyPatch
 def test_server_auth_allows_http_over_loopback(monkeypatch: pytest.MonkeyPatch) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_BEARER_ENV",
+        "CAPDISC_MCP_BEARER_ENV",
         '{"dev": {"env": "CAPDISC_TEST_TOKEN", "host": "localhost"}}',
     )
     monkeypatch.setenv("CAPDISC_TEST_TOKEN", "tok-123")
@@ -240,10 +240,10 @@ def test_server_auth_oauth_client_only_when_enabled(
 ) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_OAUTH_CLIENTS",
+        "CAPDISC_MCP_OAUTH_CLIENTS",
         '{"github": {"client_id": "abc", "host": "h", "scopes": ["read:user"]}}',
     )
-    monkeypatch.setenv("CAPABILITIES_DISCOVERY_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
+    monkeypatch.setenv("CAPDISC_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
     try:
         assert server_auth("plugin:github:github", {"url": "https://h/mcp"}, oauth=False) is None
         auth = server_auth("plugin:github:github", {"url": "https://h/mcp"}, oauth=True)
@@ -258,10 +258,10 @@ def test_server_auth_oauth_rejected_when_host_mismatches(
 ) -> None:
     get_settings.cache_clear()
     monkeypatch.setenv(
-        "CAPABILITIES_DISCOVERY_MCP_OAUTH_CLIENTS",
+        "CAPDISC_MCP_OAUTH_CLIENTS",
         '{"github": {"client_id": "abc", "host": "api.githubcopilot.com", "scopes": []}}',
     )
-    monkeypatch.setenv("CAPABILITIES_DISCOVERY_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
+    monkeypatch.setenv("CAPDISC_OAUTH_TOKEN_DIR", str(tmp_path / "tokens"))
     try:
         auth = server_auth("plugin:evil:github", {"url": "https://evil.example/mcp"}, oauth=True)
         assert auth is None

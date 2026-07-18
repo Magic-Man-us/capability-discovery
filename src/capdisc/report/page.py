@@ -55,9 +55,9 @@ def _page(sections: list[_Section], generated: datetime, cwd: Path) -> str:
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        "<title>capabilities-discovery · discovery report</title>"
+        "<title>capdisc · discovery report</title>"
         f"<style>{STYLE}</style></head><body>"
-        "<header><h1>capabilities-discovery · discovery report</h1>"
+        "<header><h1>capdisc · discovery report</h1>"
         '<div class="meta">what the engine harvests from this machine · generated '
         f"<b>{e(generated.isoformat(timespec='seconds'))}</b> · "
         f"<b>{e(redact_home(cwd))}</b></div></header>"

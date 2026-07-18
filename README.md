@@ -1,4 +1,4 @@
-# capabilities-discovery
+# capdisc
 
 Discovers Claude Code capabilities — skills, agents, plugins, MCP servers, hooks — into typed
 Pydantic catalogs and an environment report.
@@ -13,8 +13,8 @@ uv sync
 
 ```python
 from pathlib import Path
-from capabilities_discovery.discovery import scan_environment
-from capabilities_discovery.scope import ScopeRoots
+from capdisc.discovery import scan_environment
+from capdisc.scope import ScopeRoots
 
 roots = ScopeRoots.discover(start=Path.cwd(), home_dir=Path.home())
 catalog = scan_environment(roots)

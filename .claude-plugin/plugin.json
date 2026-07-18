@@ -1,5 +1,5 @@
 {
-  "name": "capabilities-discovery",
+  "name": "capdisc",
   "displayName": "Capabilities Discovery",
   "version": "0.1.0",
   "description": "Inventory the machine's Claude Code capabilities — skills, agents, plugins, MCP servers, hooks, and built-in tools across user/project/plugin scopes — into a typed JSON catalog and an HTML environment report.",

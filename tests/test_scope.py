@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from capabilities_discovery.scope import ArtifactKind, ScopeInventory, ScopeKind, ScopeRoots
+from capdisc.scope import ArtifactKind, ScopeInventory, ScopeKind, ScopeRoots
 from helpers import standalone_set, touch
 
 

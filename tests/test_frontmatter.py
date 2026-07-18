@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from capabilities_discovery.frontmatter import read_frontmatter
+from capdisc.frontmatter import read_frontmatter
 
 _EXPECTED = {"name": "foo", "description": "does a thing"}
 
