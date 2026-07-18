@@ -1,6 +1,6 @@
 [project]
 name = "claude-code-capabilities"
-version = "0.1.3"
+version = "0.1.4"
 description = "Discovers Claude Code capabilities — skills, agents, plugins, MCP servers, hooks — into typed catalogs and an environment report."
 readme = "README.md"
 license = "MIT"
@@ -29,6 +29,8 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/Magic-Man-us/claude-code-capabilities"
 Repository = "https://github.com/Magic-Man-us/claude-code-capabilities"
+Issues = "https://github.com/Magic-Man-us/claude-code-capabilities/issues"
+Changelog = "https://github.com/Magic-Man-us/claude-code-capabilities/releases"
 
 [project.scripts]
 capdisc = "capdisc.report:main"
