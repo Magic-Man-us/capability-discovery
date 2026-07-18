@@ -2,7 +2,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/claude-code-capabilities.svg)](https://pypi.org/project/claude-code-capabilities/)
 [![Python versions](https://img.shields.io/pypi/pyversions/claude-code-capabilities.svg)](https://pypi.org/project/claude-code-capabilities/)
-[![CI](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/ci.yml/badge.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/ci.yml)
+[![CI](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/publish.yml/badge.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/actions/workflows/publish.yml)
 [![codecov](https://codecov.io/gh/Magic-Man-us/claude-code-capabilities/graph/badge.svg)](https://codecov.io/gh/Magic-Man-us/claude-code-capabilities)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Magic-Man-us/claude-code-capabilities/blob/main/LICENSE)
 

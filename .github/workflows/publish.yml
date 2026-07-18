@@ -1,11 +1,14 @@
-name: Publish to PyPI
+name: CI & Publish
 
 on:
+  push:
+    branches: [main]
+  pull_request:
   release:
     types: [published]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -15,7 +18,29 @@ jobs:
       - run: uv sync --locked
       - run: uv run ruff check .
       - run: uv run mypy src
-      - run: uv run pytest -q
+      - run: uv run pytest -q --cov --cov-report=xml --cov-report=term-missing --junitxml=junit.xml -o junit_family=legacy
+      - if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          fail_ci_if_error: false
+      - if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: junit.xml
+
+  build:
+    if: github.event_name == 'release'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v8.3.2
+        with:
+          enable-cache: true
+      - run: uv sync --locked
       - run: uv build
       - uses: actions/upload-artifact@v7
         with:
@@ -23,6 +48,7 @@ jobs:
           path: dist/
 
   publish:
+    if: github.event_name == 'release'
     needs: build
     runs-on: ubuntu-latest
     environment:
